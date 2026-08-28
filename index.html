@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="description" content="문법 정리·퀴즈, 문장 패턴 드릴, 듣기 수업 도구 — 영어 학습 도구 모음." />
+<meta name="theme-color" content="#FFFFFF" />
+<title>DADA 학습</title>
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="DADA 학습" />
+<meta property="og:description" content="문법 정리·퀴즈, 문장 패턴 드릴, 듣기 수업 도구." />
+<meta property="og:locale" content="ko_KR" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231E7A5E'/%3E%3Cpath d='M9 10h9a6 6 0 0 1 0 12H9z' fill='none' stroke='white' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E" />
+
+<!-- 폰트는 있으면 좋고 없으면 시스템 폰트로 떨어진다. 렌더링을 막지 않는다. -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" media="print" onload="this.media='all'"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+
+<style>
+/* ============================================================
+   디자인 토큰 — 고등영어문법(engrammar)과 같은 값.
+   세 앱이 한 식구로 보이도록 색·글꼴·모서리를 맞춰 둔다.
+   ============================================================ */
+:root {
+  --bg: #FFFFFF;
+  --surface: #F7F8F9;
+  --surface-muted: #F0F2F4;
+
+  --text: #15181B;
+  --text-soft: #4B5158;
+  --text-muted: #7C848C;
+  --text-faint: #A9B0B8;
+
+  --border: #E5E8EB;
+  --border-strong: #CBD1D7;
+
+  --brand: #1E7A5E;
+  --brand-deep: #16604A;
+  --brand-faint: #EFF7F4;
+
+  --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont,
+               "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* 한국어는 기본값으로 글자 단위로 줄바꿈된다 — 어절 단위로 끊는다 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+a { color: inherit; text-decoration: none; }
+h1, h2, p { margin: 0; }
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+.shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 0 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── 머리 ─────────────────────────────────────────────── */
+.top {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 56px;
+}
+
+.mark {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-sm);
+  background: var(--brand);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.brand { font-size: 14.5px; font-weight: 700; letter-spacing: -0.02em; }
+
+.lead {
+  padding: 26px 0 22px;
+  font-size: 14.5px;
+  color: var(--text-muted);
+}
+
+/* ── 앱 카드 ──────────────────────────────────────────── */
+.apps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.app {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: #fff;
+  transition: border-color .15s ease, background .15s ease, transform .06s ease;
+}
+.app:hover { border-color: var(--border-strong); background: var(--surface); }
+.app:active { transform: translateY(1px); }
+
+.app-mark {
+  width: 42px;
+  height: 42px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-md);
+  background: var(--brand-faint);
+  color: var(--brand);
+}
+
+.app-body { flex: 1; min-width: 0; display: block; }
+
+.app-name {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.app-desc {
+  display: block;
+  margin-top: 3px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.app-go { flex: none; color: var(--text-faint); }
+.app:hover .app-go { color: var(--brand); }
+
+/* ── 만든사람 ─────────────────────────────────────────── */
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 24px calc(32px + var(--safe-bottom));
+  font-size: 13px;
+  color: var(--text-faint);
+}
+.foot a {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  transition: background .15s ease, color .15s ease;
+}
+.foot a:hover { background: var(--surface); color: var(--text); }
+
+@media (max-width: 560px) {
+  body { font-size: 14.5px; }
+  .wrap { padding: 0 18px; }
+  .lead { padding: 20px 0 18px; }
+  .app { padding: 16px; gap: 12px; }
+  .app-mark { width: 38px; height: 38px; }
+  .app-name { font-size: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: .01ms !important; }
+}
+</style>
+</head>
+
+<body>
+<div class="shell">
+  <div class="wrap">
+    <header class="top">
+      <span class="mark" aria-hidden="true">D</span>
+      <span class="brand">DADA 학습</span>
+    </header>
+
+    <p class="lead">공부할 것을 골라 주세요.</p>
+
+    <!-- ────────────────────────────────────────────────────────
+         앱을 추가하려면 아래 <a class="app"> 한 덩어리를 복사하면 된다.
+         주소를 바꿀 일이 생기면 여기 href 세 줄만 고치면 끝.
+         ──────────────────────────────────────────────────────── -->
+    <main class="apps">
+
+      <a class="app" href="https://grammar.dada-town.com/">
+        <span class="app-mark" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+          </svg>
+        </span>
+        <span class="app-body">
+          <span class="app-name">고등영어문법</span>
+          <span class="app-desc">고등 과정 문법을 정리해 읽고, 퀴즈와 오답노트로 익힙니다.</span>
+        </span>
+        <span class="app-go" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </span>
+      </a>
+
+      <a class="app" href="https://pattern.dada-town.com/">
+        <span class="app-mark" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 0 1 15-6.7L21 8" /><path d="M21 3v5h-5" />
+            <path d="M21 12a9 9 0 0 1-15 6.7L3 16" /><path d="M3 21v-5h5" />
+          </svg>
+        </span>
+        <span class="app-body">
+          <span class="app-name">문장 패턴 드릴</span>
+          <span class="app-desc">주어·시제·형태를 한 걸음씩 바꿔가며 문장을 소리 내어 말해 봅니다.</span>
+        </span>
+        <span class="app-go" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </span>
+      </a>
+
+      <a class="app" href="https://listen.dada-town.com/">
+        <span class="app-mark" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
+            <rect x="2.5" y="13.5" width="4" height="7" rx="1.6" />
+            <rect x="17.5" y="13.5" width="4" height="7" rx="1.6" />
+          </svg>
+        </span>
+        <span class="app-body">
+          <span class="app-name">듣기 수업 도구</span>
+          <span class="app-desc">음원을 올리면 스크립트와 갭필 문제까지 만들어 줍니다.</span>
+        </span>
+        <span class="app-go" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </span>
+      </a>
+
+    </main>
+  </div>
+
+  <footer class="foot">
+    <span>만든사람 DADA</span>
+    <a href="https://dada-town.com/" aria-label="만든사람 홈페이지" title="dada-town.com">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10.5 12 3l9 7.5" />
+        <path d="M5.5 9.5V20a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9.5" />
+      </svg>
+    </a>
+  </footer>
+</div>
+</body>
+</html>
