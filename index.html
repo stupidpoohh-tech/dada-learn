@@ -27,7 +27,6 @@
 :root {
   --bg: #FFFFFF;
   --surface: #F7F8F9;
-  --surface-muted: #F0F2F4;
 
   --text: #15181B;
   --text-soft: #4B5158;
@@ -47,7 +46,6 @@
   --r-sm: 8px;
   --r-md: 12px;
   --r-lg: 16px;
-  --r-pill: 999px;
 
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -72,7 +70,7 @@ html, body {
 }
 
 a { color: inherit; text-decoration: none; }
-h1, h2, p { margin: 0; }
+p { margin: 0; }
 
 :focus-visible {
   outline: 2px solid var(--brand);
@@ -88,12 +86,20 @@ h1, h2, p { margin: 0; }
 
 .wrap {
   width: 100%;
-  max-width: 560px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 0 24px;
   flex: 1;
   display: flex;
   flex-direction: column;
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 56px;
 }
 
 /* ── 머리 ─────────────────────────────────────────────── */
@@ -120,23 +126,29 @@ h1, h2, p { margin: 0; }
 .brand { font-size: 14.5px; font-weight: 700; letter-spacing: -0.02em; }
 
 .lead {
-  padding: 26px 0 22px;
+  padding: 0 0 20px;
   font-size: 14.5px;
   color: var(--text-muted);
 }
 
-/* ── 앱 카드 ──────────────────────────────────────────── */
+/* ── 앱 타일 — 가로 3열 ───────────────────────────────────
+   좁은 화면에서도 3열을 유지한다. 그래서 아이콘을 위에 놓고
+   글자를 아래로 내리는 세로 타일 형태를 쓴다 — 가로로 세 칸을
+   나누면 한 칸에 들어갈 글자 폭이 좁기 때문이다.
+   ──────────────────────────────────────────────────────── */
 .apps {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
 }
 
 .app {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 14px;
-  padding: 18px;
+  text-align: center;
+  gap: 12px;
+  padding: 26px 14px 22px;
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   background: #fff;
@@ -146,8 +158,8 @@ h1, h2, p { margin: 0; }
 .app:active { transform: translateY(1px); }
 
 .app-mark {
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   flex: none;
   display: grid;
   place-items: center;
@@ -156,25 +168,21 @@ h1, h2, p { margin: 0; }
   color: var(--brand);
 }
 
-.app-body { flex: 1; min-width: 0; display: block; }
-
 .app-name {
   display: block;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: -0.03em;
+  line-height: 1.35;
 }
 
 .app-desc {
   display: block;
-  margin-top: 3px;
-  font-size: 13px;
-  line-height: 1.55;
+  margin-top: 4px;
+  font-size: 12.5px;
+  line-height: 1.5;
   color: var(--text-muted);
 }
-
-.app-go { flex: none; color: var(--text-faint); }
-.app:hover .app-go { color: var(--brand); }
 
 /* ── 만든사람 ─────────────────────────────────────────── */
 .foot {
@@ -201,10 +209,20 @@ h1, h2, p { margin: 0; }
 @media (max-width: 560px) {
   body { font-size: 14.5px; }
   .wrap { padding: 0 18px; }
-  .lead { padding: 20px 0 18px; }
-  .app { padding: 16px; gap: 12px; }
+  .lead { padding: 0 0 16px; }
+  .apps { gap: 8px; }
+  .app { padding: 20px 8px 18px; gap: 10px; }
+  .app-mark { width: 42px; height: 42px; }
+  .app-name { font-size: 13.5px; letter-spacing: -0.04em; }
+  .app-desc { font-size: 11.5px; margin-top: 3px; }
+}
+
+@media (max-width: 380px) {
+  .wrap { padding: 0 14px; }
+  .apps { gap: 6px; }
+  .app { padding: 18px 6px 16px; }
   .app-mark { width: 38px; height: 38px; }
-  .app-name { font-size: 15px; }
+  .app-name { font-size: 13px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -221,75 +239,60 @@ h1, h2, p { margin: 0; }
       <span class="brand">DADA 학습</span>
     </header>
 
-    <p class="lead">공부할 것을 골라 주세요.</p>
+    <div class="center">
+      <p class="lead">공부할 것을 골라 주세요.</p>
 
-    <!-- ────────────────────────────────────────────────────────
-         앱을 추가하려면 아래 <a class="app"> 한 덩어리를 복사하면 된다.
+      <!-- ────────────────────────────────────────────────────────
+         앱을 추가하려면 아래 <a class="app"> 한 덩어리를 복사한 뒤
+         .apps 의 grid-template-columns 를 열 수에 맞춰 고친다.
          주소를 바꿀 일이 생기면 여기 href 세 줄만 고치면 끝.
          ──────────────────────────────────────────────────────── -->
-    <main class="apps">
+      <main class="apps">
 
       <a class="app" href="https://grammar.dada-town.com/">
         <span class="app-mark" aria-hidden="true">
-          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
           </svg>
         </span>
-        <span class="app-body">
+        <span>
           <span class="app-name">고등영어문법</span>
-          <span class="app-desc">고등 과정 문법을 정리해 읽고, 퀴즈와 오답노트로 익힙니다.</span>
-        </span>
-        <span class="app-go" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
+          <span class="app-desc">문법 정리와 퀴즈</span>
         </span>
       </a>
 
       <a class="app" href="https://pattern.dada-town.com/">
         <span class="app-mark" aria-hidden="true">
-          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 12a9 9 0 0 1 15-6.7L21 8" /><path d="M21 3v5h-5" />
             <path d="M21 12a9 9 0 0 1-15 6.7L3 16" /><path d="M3 21v-5h5" />
           </svg>
         </span>
-        <span class="app-body">
+        <span>
           <span class="app-name">문장 패턴 드릴</span>
-          <span class="app-desc">주어·시제·형태를 한 걸음씩 바꿔가며 문장을 소리 내어 말해 봅니다.</span>
-        </span>
-        <span class="app-go" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
+          <span class="app-desc">바꿔 말하기 연습</span>
         </span>
       </a>
 
       <a class="app" href="https://listen.dada-town.com/">
         <span class="app-mark" aria-hidden="true">
-          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
             <rect x="2.5" y="13.5" width="4" height="7" rx="1.6" />
             <rect x="17.5" y="13.5" width="4" height="7" rx="1.6" />
           </svg>
         </span>
-        <span class="app-body">
+        <span>
           <span class="app-name">듣기 수업 도구</span>
-          <span class="app-desc">음원을 올리면 스크립트와 갭필 문제까지 만들어 줍니다.</span>
-        </span>
-        <span class="app-go" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
+          <span class="app-desc">스크립트와 갭필 생성</span>
         </span>
       </a>
 
-    </main>
+      </main>
+    </div>
   </div>
 
   <footer class="foot">
