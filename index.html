@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="description" content="문법 정리·퀴즈, 문장 패턴 드릴, 듣기 수업 도구 — 영어 학습 도구 모음." />
+<meta name="description" content="문법 정리·퀴즈, 어휘 연결, 문장 패턴 드릴, 듣기 수업 도구 — 영어 학습 도구 모음." />
 <meta name="theme-color" content="#FFFFFF" />
 <title>DADA 학습</title>
 
 <meta property="og:type" content="website" />
 <meta property="og:title" content="DADA 학습" />
-<meta property="og:description" content="문법 정리·퀴즈, 문장 패턴 드릴, 듣기 수업 도구." />
+<meta property="og:description" content="문법 정리·퀴즈, 어휘 연결, 문장 패턴 드릴, 듣기 수업 도구." />
 <meta property="og:locale" content="ko_KR" />
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231E7A5E'/%3E%3Cpath d='M9 10h9a6 6 0 0 1 0 12H9z' fill='none' stroke='white' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E" />
@@ -131,14 +131,17 @@ p { margin: 0; }
   color: var(--text-muted);
 }
 
-/* ── 앱 타일 — 가로 3열 ───────────────────────────────────
-   좁은 화면에서도 3열을 유지한다. 그래서 아이콘을 위에 놓고
-   글자를 아래로 내리는 세로 타일 형태를 쓴다 — 가로로 세 칸을
-   나누면 한 칸에 들어갈 글자 폭이 좁기 때문이다.
+/* ── 앱 타일 — 가로 배치 ─────────────────────────────────
+   아이콘을 위에 놓고 글자를 아래로 내리는 세로 타일 형태다.
+   가로로 여러 칸을 나누면 한 칸의 글자 폭이 좁아지기 때문에,
+   카드를 옆으로 눕히는 대신 이 형태를 쓴다.
+
+   넓은 화면은 한 줄(4열), 좁은 화면은 2×2. 360px 에서 4열이면
+   한 칸이 78px 라 앱 이름이 두 줄로 깨진다.
    ──────────────────────────────────────────────────────── */
 .apps {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
 }
 
@@ -217,6 +220,11 @@ p { margin: 0; }
   .app-desc { font-size: 11.5px; margin-top: 3px; }
 }
 
+/* 한 칸이 110px 아래로 내려가면 앱 이름이 접힌다 — 그 전에 2×2 로 */
+@media (max-width: 460px) {
+  .apps { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 380px) {
   .wrap { padding: 0 14px; }
   .apps { gap: 6px; }
@@ -259,6 +267,20 @@ p { margin: 0; }
         <span>
           <span class="app-name">고등영어문법</span>
           <span class="app-desc">문법 정리와 퀴즈</span>
+        </span>
+      </a>
+
+      <a class="app" href="https://vocamap.dada-town.com/">
+        <span class="app-mark" aria-hidden="true">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8.5 6.9 15.5 6.6M7.2 9.2 10.8 15.8M16.9 8.7 13.2 15.8" />
+            <circle cx="6" cy="7" r="2.5" /><circle cx="18" cy="6.5" r="2.5" /><circle cx="12" cy="18" r="2.5" />
+          </svg>
+        </span>
+        <span>
+          <span class="app-name">VOCAMAP</span>
+          <span class="app-desc">연결해서 외우는 어휘</span>
         </span>
       </a>
 
