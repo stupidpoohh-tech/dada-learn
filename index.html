@@ -253,11 +253,18 @@ p { margin: 0; }
       <!-- ────────────────────────────────────────────────────────
          앱을 추가하려면 아래 <a class="app"> 한 덩어리를 복사한 뒤
          .apps 의 grid-template-columns 를 열 수에 맞춰 고친다.
-         주소를 바꿀 일이 생기면 여기 href 세 줄만 고치면 끝.
+         주소를 바꿀 일이 생기면 여기 href 만 고치면 끝.
+
+         **target="_blank" 는 빼면 안 된다.** 앱마다 도메인이 다른데,
+         이 화면을 아이폰 홈 화면에 추가해 두면 Safari 탭이 아니라 앱처럼
+         뜨고, 그 안에서 다른 도메인으로 그냥 이동하면 iOS 가 이 화면을
+         Safari 로 내보낼지 말지 정하지 못해 계속 다시 불러온다 — 화면이
+         깜빡이기만 하고 끝내 들어가지지 않는다. 새 탭으로 열면 iOS 가
+         Safari 에 넘겨 주고, 학습 화면도 그대로 남는다.
          ──────────────────────────────────────────────────────── -->
       <main class="apps">
 
-      <a class="app" href="https://grammar.dada-town.com/">
+      <a class="app" target="_blank" rel="noopener" href="https://grammar.dada-town.com/">
         <span class="app-mark" aria-hidden="true">
           <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -270,7 +277,7 @@ p { margin: 0; }
         </span>
       </a>
 
-      <a class="app" href="https://vocamap.dada-town.com/">
+      <a class="app" target="_blank" rel="noopener" href="https://vocamap.dada-town.com/">
         <span class="app-mark" aria-hidden="true">
           <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -284,7 +291,7 @@ p { margin: 0; }
         </span>
       </a>
 
-      <a class="app" href="https://pattern.dada-town.com/">
+      <a class="app" target="_blank" rel="noopener" href="https://pattern.dada-town.com/">
         <span class="app-mark" aria-hidden="true">
           <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -298,7 +305,7 @@ p { margin: 0; }
         </span>
       </a>
 
-      <a class="app" href="https://listen.dada-town.com/">
+      <a class="app" target="_blank" rel="noopener" href="https://listen.dada-town.com/">
         <span class="app-mark" aria-hidden="true">
           <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
