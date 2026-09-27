@@ -189,6 +189,7 @@ p { margin: 0; }
 
 /* ── 만든사람 ─────────────────────────────────────────── */
 .foot {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -208,6 +209,38 @@ p { margin: 0; }
   transition: background .15s ease, color .15s ease;
 }
 .foot a:hover { background: var(--surface); color: var(--text); }
+
+/* ── 개인용 진입점 ─────────────────────────────────────
+   시험 대비 페이지. 남에게 권하는 앱이 아니라서 타일로 내놓지 않고,
+   오른쪽 끝에 흐린 점 하나로 둔다. 손으로 누를 만큼은 크게(32px).
+   눈에 안 띄게 한 것일 뿐 주소는 소스에 그대로 있다 — 비밀은 아니다.
+   ──────────────────────────────────────────────────── */
+.foot a.quiet {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  color: var(--text-faint);
+  opacity: .22;
+  transition: opacity .15s ease, color .15s ease;
+}
+.foot a.quiet::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.foot a.quiet:hover,
+.foot a.quiet:focus-visible {
+  opacity: 1;
+  color: var(--brand);
+  background: none;
+}
 
 @media (max-width: 560px) {
   body { font-size: 14.5px; }
@@ -333,6 +366,10 @@ p { margin: 0; }
         <path d="M5.5 9.5V20a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9.5" />
       </svg>
     </a>
+
+    <!-- 개인용 — 시험 대비 문제. 목록에 내놓지 않는다. -->
+    <a class="quiet" href="https://voca-quiz-dm3.pages.dev/"
+       target="_blank" rel="noopener nofollow" aria-label="시험 대비" title="시험 대비"></a>
   </footer>
 </div>
 </body>
