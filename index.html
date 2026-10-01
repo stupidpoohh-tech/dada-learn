@@ -212,8 +212,12 @@ p { margin: 0; }
 
 /* ── 개인용 진입점 ─────────────────────────────────────
    시험 대비 페이지. 남에게 권하는 앱이 아니라서 타일로 내놓지 않고,
-   오른쪽 끝에 흐린 점 하나로 둔다. 손으로 누를 만큼은 크게(32px).
+   발치에 흐린 점으로 둔다. 손으로 누를 만큼은 크게(32px).
    눈에 안 띄게 한 것일 뿐 주소는 소스에 그대로 있다 — 비밀은 아니다.
+
+   **배우는 사람마다 점이 하나씩이다.** 둘이 생기면서 오른쪽/왼쪽으로 갈랐다 —
+   한자리에 모아 두면 흐린 점 두 개가 나란히 붙어, 숨겨 둔 것이 오히려 「무언가
+   있다」고 말하게 된다. 양 끝에 하나씩이면 각자 장식으로 보인다.
    ──────────────────────────────────────────────────── */
 .foot a.quiet {
   position: absolute;
@@ -241,6 +245,9 @@ p { margin: 0; }
   color: var(--brand);
   background: none;
 }
+/* 왼쪽 발치. **`right: auto`를 꼭 같이 준다** — 위에서 받은 `right: 20px`가
+   그대로 남으면 점 하나가 양쪽 끝에 걸려 발치 폭이 통째로 늘어난다 */
+.foot a.quiet--left { right: auto; left: 20px; }
 
 @media (max-width: 560px) {
   body { font-size: 14.5px; }
@@ -367,8 +374,11 @@ p { margin: 0; }
       </svg>
     </a>
 
-    <!-- 개인용 — 시험 대비 문제. 목록에 내놓지 않는다. -->
-    <a class="quiet" href="https://voca-quiz-dm3.pages.dev/"
+    <!-- 개인용 — 시험 대비 문제. 목록에 내놓지 않는다. 배우는 사람마다 한 점씩,
+         왼쪽·오른쪽 발치에 하나씩 둔다 (왜 갈라 놓았는지는 위 CSS에 적었다). -->
+    <a class="quiet quiet--left" href="https://voca-quiz-dm3.pages.dev/junhyuk/"
+       target="_blank" rel="noopener nofollow" aria-label="시험 대비" title="시험 대비"></a>
+    <a class="quiet" href="https://voca-quiz-dm3.pages.dev/jiwoo/"
        target="_blank" rel="noopener nofollow" aria-label="시험 대비" title="시험 대비"></a>
   </footer>
 </div>
